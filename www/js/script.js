@@ -1,0 +1,1 @@
+var courseDonePercent = 60;
