@@ -1,27 +1,47 @@
 var express = require('express');
 var app = express();
+var apiRouter = express.Router();
 
-app.get('/index.txt', function(req, res) {
-  res.send("BLAAAARGggggghh");
+var parameters = require('./parameters.json');
+
+// Le code
+
+// TODO: split this up into different source files
+apiRouter.use(function(request, response, pass) {
+  // For now just return 404 because there's no api endpoints yet.
+  response.sendStatus(404);
 });
 
-var server = app.lister(80, function() {
+// If the path starts with /api, give the apiRouter complete control.
+app.use('/api', apiRouter);
+
+// For now, everything else can be handled by the static file middleware thingy.
+app.use(express.static(parameters.staticBase));
+
+var server = app.listen(parameters.port, function() {
 
   stopBeingRoot();
 
   var host = server.address().address;
   var port = server.address().port;
 
-
-
-  console.log('Thing running verily.', host, port);
+  console.log('hackingedutube running on port ' + port);
+ 
 });
 
+// If you're running Windows you should circumvent this function.
 function stopBeingRoot() {
-  console.log('UID is currently ' + process.getuid());
+  var startingUID = process.getuid();
+
   var uid = parseInt(process.env.SUDO_UID);
   if (uid) {
     process.setuid(uid);
   }
-  console.log('UID changed to ' + process.getuid());
+
+  var endingUID = process.getuid();
+
+  if (startingUID === endingUID) {
+    console.error('Unable to change the UID. Let\'s assume that\'s bad.');
+    process.exit(1); // Generic error code
+  }
 }
