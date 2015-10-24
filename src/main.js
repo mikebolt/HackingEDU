@@ -56,7 +56,8 @@ app.post('/api/user/:username', function(request, response) {
 
   var username = request.params.username;
 
-  var filePath = getHashPath(username, 'users');
+  var filePath = '/home/user/git/database/user/lolololol';
+  //var filePath = getHashPath(username, 'users');
 
   var data;
 
