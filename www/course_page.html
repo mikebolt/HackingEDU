@@ -3,27 +3,55 @@
 <head>
 	<meta charset="UTF-8">
 	<title>HackingEdu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="css/style.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 <body>
 	<script src="js/bootstrap.min.js"></script>
     <script src="static/js/script.js"></script>
 
     <div class="header">
-
+        <h1 class='center'>COURSE NAME</h1>
     </div>
-    <div class="course-video">
+
+    <div class="course_video">
         <div class="video-container">
-            <iframe src="https://www.youtube.com/watch?v=HMUDVMiITOU" frameborder="0" width="560" height="315"></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/HMUDVMiITOU" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
-    <div class="progress-bar">
+
+    <div class="progress_bar">
 
     </div>
-    <div class="note-discussion">
+
+    <div class="note_discussion">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="active"><a href="#note">CLASS NOTE</a></li>
+            <li><a href="#discussion">DISCUSSION</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="note" class="tab-pane fade in active">
+                <h3>CLASS NOTES</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div id="discussion" class="tab-pane fade">
+                <h3>DISCUSSION</h3>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+        </div>
 
     </div>
+    <script>
+        $(document).ready(function(){
+            $(".nav-tabs a").click(function(){
+                $(this).tab('show');
+            });
+        });
+    </script>
 
 </body>
 </html>
