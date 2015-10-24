@@ -1,3 +1,33 @@
+/**------------------------------------------------------------------
+[Table of Contents]
+*Organized from top to bottom
+
+1. Background / #Background
+2. Profile Pic / #Profile
+3. Course Listing / #Courses
+4. Explore & Enroll tabs / #Tabs
+5. Course Page Styling
+------------------------------------------------------------------**/
+
+/* #Background
+================================ */
+
+
+/* #Profile
+================================ */
+
+.profile.center {
+	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+}
+
+.user {
+	text-align: center;
+}
+
+/* Course Page Styling
+================================ */
 .header{
     text-align: center;
     padding-bottom: 10px;
