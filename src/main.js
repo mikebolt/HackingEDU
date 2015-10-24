@@ -58,14 +58,19 @@ app.post('/api/user/:username', function(request, response) {
 
   var filePath = getHashPath(username, 'users');
 
+  var data;
+
   // see if it exists
   fs.stat(filePath, function(error, stats) {
-    if (stats.isFile()) {
-      var data = readJSON(filePath);
+    if (error !== undefined) {
+      data = {};
+    }
+    else if (stats.isFile()) {
+      data = readJSON(filePath);
       //
     }
     else {
-      var data = {};
+      data = {};
     }
 
     for (var i = 0; i < userOptionalProperties.length; ++i) {
