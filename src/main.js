@@ -1,4 +1,4 @@
-var cps = require('cps-api');
+var crypto = require('crypto');
 var express = require('express');
 var app = express();
 
@@ -7,9 +7,16 @@ var apiRouter = express.Router();
 
 var parameters = require('./parameters.json');
 
-//var cpsConn = new cps.Connection(
+// doing the hashing so that users can't exploit relative filenames
+var idHasher = crypto.createHash('sha512');
 
 // Le 'database' utility functions
+
+function getHashPath(id, endpoint) {
+  idHasher.update(id, 'utf8');
+  var hash = idHasher.digest('base64');
+  return parameters.databasePath + '/' + endpoint + '/' + hash;
+}
 
 function writeJSON(filePath, data) {
   var dataString;
@@ -35,24 +42,73 @@ function readJSON(filePath) {
 // TODO: split this up into different source files
 // actually this is just going to be a big mess here
 
+var userOptionalProperties =
+[
+  'email',
+  'enrolledCourses',
+  'biography',
+  'interests'
+];
+
 app.post('/api/user/:username', function(request, response) {
   console.log('POST /api/user');
 
-  var username = req.params.username;
+  var username = request.params.username;
 
+  var filePath = getHashPath(username, 'users');
+
+  // see if it exists
+  fs.stat(filePath, function(error, stats) {
+    if (stats.isFile()) {
+      var data = readJSON(filePath);
+      //
+    }
+    else {
+      var data = {};
+    }
+
+    for (var i = 0; i < userOptionalProperties.length; ++i) {
+      var value = request.params[userOptionalProperties[i]];
+      if (value !== undefined) {
+        if (userOptionalProperties[i] === 'enrolledCourses') {
+          data['enrolledCourses'] = value.split(',');
+	}
+	else {
+	  data[userOptionalProperties[i]] = value;
+	}
+      }
+    }
+
+    writeJSON(filePath, data);
+  });
 });
 
 app.get('/api/user/:username', function(request, response) {
   console.log('looks like you made a GET request for /api/user');
 
-  var username = req.params.username;
+  var username = request.params.username;
 
+  var filePath = getHashPath(username, 'users');
+
+  // assume nothing could possibly go wrong
+  var data = fs.readFileSync(filePath);
+
+  response.send(data);
 });
+
+var courseOptionalProperties =
+[
+  'duration',
+  'instructor',
+  'videos'
+];
 
 app.post('/api/course/:courseID', function(request, response) {
   console.log('POST /api/course')
 
-  var courseID = req.params.courseID;
+  var courseID = request.params.courseID;
+
+  var filePath = getHashPath(courseID, 'courses');
    
   // Just overwrite any valid parameters specified
 
@@ -65,8 +121,32 @@ app.post('/api/course/:courseID', function(request, response) {
 app.get('/api/course/:courseID', function(request, response) {
   console.log('GET /api/course');
 
-  var courseID = req.params.courseID;
+  var courseID = request.params.courseID;
 
+  var filePath = getHashPath(courseID, 'courses');
+
+  var data = fs.readFileSync(filePath);
+
+  response.send(data);
+});
+
+app.post('/api/video/:videoID', function(request, response) {
+
+  var videoID = request.params.videoID;
+
+  var filePath = getHashPath(videoID, 'videos');
+});
+
+// Note: the videoID is the same as the YouTube video ID
+app.get('/api/video/:videoID', function(request, response) {
+
+  var videoID = request.params.videoID;
+
+  var filePath = getHashPath(videoID, 'videos');
+
+  var data = fs.readFileSync(filePath);
+
+  response.send(data);
 });
 
 
