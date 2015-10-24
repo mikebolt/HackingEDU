@@ -26,24 +26,34 @@
 	text-align: center;
 }
 
+/* #Courses
+================================ */
+
+.course-listing {
+	text-align: center;
+}
+
+
 /* Course Page Styling
 ================================ */
-.header{
+/*[Table of Contents]
+*Organized from top to bottom
+
+1. Header of Page
+2. Video Container
+3. Progress Bar and individual lectures
+4. Class note and discussion tabs
+------------------------------------------------------------------**/
+
+/* #coursepage-header
+================================ */
+.coursepage-header{
     text-align: center;
     padding-bottom: 10px;
 }
 
-.tab-content{
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.nav-tabs{
-    padding-left: 15px;
-    padding-right: 15px;
-    width: 100%;
-}
-
+/* #video-container
+================================ */
 .video-container {
     position: relative;
     padding-bottom: 56.25%;
@@ -60,9 +70,18 @@
     height: 100%;
 }
 
-/* #Courses
+/* #Progress Bar
 ================================ */
 
-.course-listing {
-	text-align: center;
+/* #Class note and discussion tabs
+================================ */
+.tab-content{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.nav-tabs{
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
 }
