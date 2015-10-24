@@ -9,7 +9,28 @@ var parameters = require('./parameters.json');
 
 //var cpsConn = new cps.Connection(
 
-// Le code
+// Le 'database' utility functions
+
+function writeJSON(filePath, data) {
+  var dataString;
+
+  fs.open(filePath, 'w', function(error, fd) {
+    while (dataString === undefined); // wait for JSON.stringify to return
+    fs.writeSync(fd, dataString);
+  });
+  
+  dataString = JSON.stringify(data);
+}
+
+function readJSON(filePath) {
+  var dataString;
+
+  dataString = fs.readFileSync(filePath);
+
+  return JSON.parse(dataString);
+}
+
+// Le request methods
 
 // TODO: split this up into different source files
 // actually this is just going to be a big mess here
