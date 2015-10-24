@@ -1,0 +1,3 @@
+This folder should not contain files.
+They will not be hosted.
+This is a placeholder for the api endpoints.
