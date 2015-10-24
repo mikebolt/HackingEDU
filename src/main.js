@@ -23,8 +23,10 @@ function writeJSON(filePath, data) {
   var dataString;
 
   fs.open(filePath, 'w', function(error, fd) {
-    while (dataString === undefined); // wait for JSON.stringify to return
-    fs.writeSync(fd, dataString);
+    if (error === undefined) {
+      while (dataString === undefined); // wait for JSON.stringify to return
+      fs.writeSync(fd, dataString);
+    }
   });
   
   dataString = JSON.stringify(data);
