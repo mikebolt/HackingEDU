@@ -39,17 +39,38 @@
 /*[Table of Contents]
 *Organized from top to bottom
 
-1. Header of Page
-2. Video Container
-3. Progress Bar and individual lectures
-4. Class note and discussion tabs
+1. General Properties
+2. Header of Page
+3. Video Container
+4. Progress Bar and individual lectures
+5. Class note and discussion tabs
 ------------------------------------------------------------------**/
+/* #General Prop
+================================ */
+body {
+    background-color: rgb(209, 220, 205);
+}
 
 /* #coursepage-header
 ================================ */
 .coursepage-header{
     text-align: center;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
+}
+
+/* #progress bar
+================================ */
+#progress-bar{
+    margin-top: 20px;
+}
+
+.progress {
+    background: rgba(245, 245, 245, 1);
+    border: 0px solid rgba(245, 245, 245, 1);
+    border-radius: 0px; height: 20px;
+}
+.progress-bar-course {
+    background: rgba(69, 201, 65, 1);
 }
 
 /* #video-container
@@ -57,7 +78,7 @@
 .video-container {
     position: relative;
     padding-bottom: 56.25%;
-    padding-top: 30px; height: 0; overflow: hidden;
+    padding-top: 30px; overflow: hidden;
 }
 
 .video-container iframe,
@@ -75,9 +96,30 @@
 
 /* #Class note and discussion tabs
 ================================ */
+/* ======= Sections======= */
+.sections-wrapper {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+.section {
+  margin-bottom: 30px;
+}
+.section .section-inner {
+  background: #fff;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+.section .heading {
+  margin-top: 0;
+  margin-bottom: 30px;
+  color: #545e69;
+  font-size: 24px;
+}
+
 .tab-content{
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 30px;
 }
 
 .nav-tabs{
