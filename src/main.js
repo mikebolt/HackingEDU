@@ -24,12 +24,10 @@ function writeJSON(filePath, data) {
 
   fs.open(filePath, 'w', function(error, fd) {
     if (error === undefined) {
-      while (dataString === undefined); // wait for JSON.stringify to return
+      dataString = JSON.stringify(data);
       fs.writeSync(fd, dataString);
     }
   });
-  
-  dataString = JSON.stringify(data);
 }
 
 function readJSON(filePath) {
