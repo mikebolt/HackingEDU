@@ -1,19 +1,60 @@
+var cps = require('cps-api');
 var express = require('express');
 var app = express();
+
+var router404 = express.Router();
 var apiRouter = express.Router();
 
 var parameters = require('./parameters.json');
 
+//var cpsConn = new cps.Connection(
+
 // Le code
 
 // TODO: split this up into different source files
-apiRouter.use(function(request, response, pass) {
-  // For now just return 404 because there's no api endpoints yet.
+// actually this is just going to be a big mess here
+
+app.post('/api/user/:username', function(request, response) {
+  console.log('POST /api/user');
+
+  var username = req.params.username;
+
+});
+
+app.get('/api/user/:username', function(request, response) {
+  console.log('looks like you made a GET request for /api/user');
+
+  var username = req.params.username;
+
+});
+
+app.post('/api/course/:courseID', function(request, response) {
+  console.log('POST /api/course')
+
+  var courseID = req.params.courseID;
+   
+  // Just overwrite any valid parameters specified
+
+// instructor is auto-filled
+//  if (request.query.instructor ===
+
+ 
+});
+
+app.get('/api/course/:courseID', function(request, response) {
+  console.log('GET /api/course');
+
+  var courseID = req.params.courseID;
+
+});
+
+
+router404.use(function(request, response, pass) {
   response.sendStatus(404);
 });
 
-// If the path starts with /api, give the apiRouter complete control.
-app.use('/api', apiRouter);
+// Any api endpoint that hasn't been found yet is a 404
+app.use('/api', router404);
 
 // For now, everything else can be handled by the static file middleware thingy.
 app.use(express.static(parameters.staticBase));
