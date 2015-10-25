@@ -97,6 +97,7 @@ app.post('/api/user/:username', function(request, response) {
 	}
 	else if (userOptionalProperties[i] === 'teachingCourses') {
 	  data.teachingCourses = value.split(',');
+	}
 	else {
 	  data[userOptionalProperties[i]] = value;
 	}
