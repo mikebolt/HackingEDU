@@ -27,7 +27,6 @@ function getHashPath(id, endpoint) {
 function resourceExists(filePath) {
   var finished = false;
   var exists = false;
-  return fs.statSync(filePath).isFile();
 
   fs.stat(filePath, function(err, stat) {
     if (err && err.code === 'ENOENT') {
