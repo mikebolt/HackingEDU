@@ -10,6 +10,7 @@
 		<script src="js/jquery.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/script.js"></script>
+		<script src="js/URI.js"></script>
 
 		<div class="divider"></div>
 		<div class="divider"></div>
@@ -126,6 +127,14 @@
 	                $(".nav-tabs a").click(function(){
 	                    $(this).tab('show');
 	                });
+
+			var username = URI.parseQuery(URI.parse(document.URI).query).username;
+
+			$.ajax("http://192.241.229.102/api/user/" + username).done(function(data) {
+				var userObject = $.parseJSON(data);
+				
+
+			});
 	            });
 	        </script>
 	    </div>
