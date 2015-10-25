@@ -129,12 +129,12 @@
 						$.ajax("http://192.241.229.102/api/video/" + videoID).done(function(data) {
 							var videoObject = $.parseJSON(data);
 
-							$('course-page-subheader').text(videoObject.sectionTitle);
+							$('#course-page-subheader').text(videoObject.sectionTitle);
 							$('#note .content').text(videoObject.notes);
 						});
 					});
 
-					$('.course-page-header').text(courseID);
+					$('#course-page-header').text(courseID);
 				});
             });
         </script><!--//js for changing tabs-->
