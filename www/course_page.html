@@ -117,21 +117,21 @@
 
 				$.ajax("http://192.241.229.102/api/course/"+courseID).done(function(data){
 					var courseObject = $.parseJSON(data);
-					var videoID = courseObject.videos[index];
 					$.ajax("http://192.241.229.102/api/progress?username="+user+"&courseID="+courseID).done(function(data){
 						var progressObject = $.parseJSON(data);
 						var index = parseInt(progressObject.videoIndex, 10);
+						var videoID = courseObject.videos[index];
 
 						var videoPlayer = $("<iframe width='560' height='315' src='https://www.youtube.com/embed/"+videoID+"' frameborder='0' allowfullscreen/>");
 						var courseVideoContainer = $('#course-video-container');
 						courseVideoContainer.append(videoPlayer);
-					});
 
-					$.ajax("http://192.241.229.102/api/video/" + videoID, function(data) {
-						var videoObject = $.parseJSON(data);
+						$.ajax("http://192.241.229.102/api/video/" + videoID, function(data) {
+							var videoObject = $.parseJSON(data);
 
-						$('course-page-subheader').text(videoObject.sectionTitle);
-						$('#note .content').text(videoObject.notes);
+							$('course-page-subheader').text(videoObject.sectionTitle);
+							$('#note .content').text(videoObject.notes);
+						});
 					});
 
 					$('.course-page-header').text(courseID);
