@@ -16,6 +16,7 @@ var idHasher = crypto.createHash('sha512');
 function getHashPath(id, endpoint) {
   idHasher.update(id, 'utf8');
   var hash = idHasher.digest('base64');
+  console.log('hash for id ' + id + ' is ' + hash);
   return parameters.databasePath + '/' + endpoint + '/' + hash;
 }
 
