@@ -124,13 +124,24 @@
 
 					$('#course-page-header').text(courseID);
 				});
-            });
 
 			$("#next-btn").click( function()
 			{
+				$.ajax("http://192.241.229.102/api/course/"+courseID).done(function(data){
+					var courseObject = $.parseJSON(data);
+					$.ajax("http://192.241.229.102/api/progress?username="+user+"&courseID="+courseID).done(function(data){
+						var progressObject = $.parseJSON(data);
+						var index = parseInt(progressObject.videoIndex, 10);
 
+						$.ajax("http://192.241.229.102/api/progress?username=" + user + "&courseID=" + courseID,
+						  {method: 'POST', data: {videoIndex: "" + (index + 1)}).done(function() {
+							window.location = document.URL; // refresh 
+						});
+					});
+				});
 			});
 
+            });
         </script><!--//js for changing tabs-->
 
     </div><!--//tab menu-->
