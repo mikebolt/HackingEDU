@@ -237,7 +237,7 @@ app.get('/api/video/:videoID', function(request, response) {
   response.send(data);
 });
 
-app.put('/api/progress', function(request, response) {
+app.post('/api/progress', function(request, response) {
   if (request.query.username === undefined) {
     response.sendStatus(400);
     return;
