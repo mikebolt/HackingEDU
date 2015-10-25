@@ -1,12 +1,13 @@
 /**------------------------------------------------------------------
-[Table of Contents]
+/* Index page styling
 *Organized from top to bottom
 
 1. Background / #Background
 2. Profile Pic / #Profile
-3. Course Listing / #Courses
-4. Explore & Enroll tabs / #Tabs
-5. Course Page Styling
+3. User Bio Session
+4. Course Listing / #Courses
+5. Explore & Enroll tabs / #Tabs
+6. Course Page Styling
 ------------------------------------------------------------------**/
 
 /* #Background
@@ -46,6 +47,12 @@ body{
     height:160px;
 }
 
+/* #User Bio Section
+================================ */
+#username{
+    text-transform: uppercase;
+}
+
 /* #Courses
 ================================ */
 
@@ -78,7 +85,12 @@ body{
     text-align: center;
 }
 
-
+/* =======Add lecture to teach Buttons======= */
+#add-course-btn{
+    position: fixed;
+    bottom: 20px;
+    right:20px;
+}
 
 /* Course Page Styling
 ================================ */
@@ -130,9 +142,6 @@ body{
     background: rgba(69, 201, 65, 1);
 }
 
-#next-btn{
-    
-}
 /* #video-container
 ================================ */
 .video-container {
@@ -151,9 +160,9 @@ body{
     height: 100%;
 }
 
-#course-video.stick{
+#course-video-container.stick{
     position: fixed;
-    top: 0px;
+    top: 0;
     z-index: 10000;
 }
 
@@ -257,3 +266,13 @@ body{
   line-height: 1.33;
   border-radius: 25px;
 }
+
+
+/* Sign Up Page Styling
+================================ */
+/*[Table of Contents]
+*Organized from top to bottom
+
+1. General Properties
+2. Forms of the page
+------------------------------------------------------------------**/
