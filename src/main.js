@@ -18,7 +18,8 @@ var parameters = require('./parameters.json');
 function getHashPath(id, endpoint) {
   idHasher = crypto.createHash('sha512');
   idHasher.update(id, 'utf8');
-  var hash = idHasher.digest('base64').substr(4); // skip the "GSG/"
+  var hash = idHasher.digest('base64');
+  hash = hash.replace('/', '_').replace('+', '-');// make it filesystem/url safe
   console.log('hash for id ' + id + ' is ' + hash);
   return parameters.databasePath + '/' + endpoint + '/' + hash;
 }
