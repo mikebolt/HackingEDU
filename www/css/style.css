@@ -55,7 +55,14 @@ body {
 ================================ */
 .coursepage-header{
     text-align: center;
-    padding-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: 'Roboto', 'sans-serif';
+}
+
+.coursepage-header .img-circle{
+    vertical-align: middle;
+    height: 50px;
 }
 
 /* #progress bar
