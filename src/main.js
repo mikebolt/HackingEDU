@@ -1,21 +1,25 @@
 var fs = require('fs');
 var crypto = require('crypto');
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 var router404 = express.Router();
 var apiRouter = express.Router();
 
 var parameters = require('./parameters.json');
 
-// doing the hashing so that users can't exploit relative filenames
-var idHasher = crypto.createHash('sha512');
-
 // Le 'database' utility functions
 
 function getHashPath(id, endpoint) {
+  idHasher = crypto.createHash('sha512');
   idHasher.update(id, 'utf8');
-  var hash = idHasher.digest('base64');
+  var hash = idHasher.digest('base64').substr(4); // skip the "GSG/"
+  console.log('hash for id ' + id + ' is ' + hash);
   return parameters.databasePath + '/' + endpoint + '/' + hash;
 }
 
@@ -23,14 +27,17 @@ function writeJSON(filePath, data) {
   var dataString;
 
   console.log('opening file ' + filePath);
-  fs.open(filePath, 'w+', function(error, fd) {
+  fs.open(filePath, 'w', function(error, fd) {
     console.log('opened file, error is ' + error + ', fd is ' + fd);
-    if (error === undefined) {
-      dataString = JSON.stringify(data);
-      console.log('JSON data is ' + dataString);
-      fs.writeSync(fd, dataString);
-      console.log('wrote data to fd ' + fd);
+    if (error && error.code === 'ENOENT') {
+      console.error('could not open file ' + filePath);
+      return;
     }
+
+    dataString = JSON.stringify(data);
+    console.log('JSON data is ' + dataString);
+    fs.writeSync(fd, dataString);
+    console.log('wrote data to fd ' + fd);
   });
 }
 
@@ -58,12 +65,14 @@ var userOptionalProperties =
 app.post('/api/user/:username', function(request, response) {
   console.log('POST /api/user');
 
+  // wow, neat, thanks
+  response.sendStatus(200); // TODO 201 could be better
+
   var username = request.params.username;
 
   console.log('username is ' + username);
 
-  var filePath = '/home/user/git/database/users/lolololol';
-  //var filePath = getHashPath(username, 'users');
+  var filePath = getHashPath(username, 'users');
 
   console.log('filePath is ' + filePath);
 
@@ -74,11 +83,11 @@ app.post('/api/user/:username', function(request, response) {
     console.log('stat callback returned with error = ' + error +
                 ', and stats = ' + stats);
 
-    if (error.code === 'ENOENT') {
+    if (error) {
       data = {};
     }
-    else if (stats !== undefined && stats.isFile()) {
-      console.log('stats.isFIle() is true');
+    else if (stats && stats.isFile()) {
+      console.log('stats.isFile() is true');
 
       data = readJSON(filePath);
       //
@@ -90,7 +99,7 @@ app.post('/api/user/:username', function(request, response) {
     console.log('data is now ' + data);
 
     for (var i = 0; i < userOptionalProperties.length; ++i) {
-      var value = request.params[userOptionalProperties[i]];
+      var value = request.body[userOptionalProperties[i]];
       console.log('value for property ' + userOptionalProperties[i] +
                   ' is ' + value);
       if (value !== undefined) {
@@ -132,6 +141,9 @@ var courseOptionalProperties =
 app.post('/api/course/:courseID', function(request, response) {
   console.log('POST /api/course')
 
+  // neatooo
+  response.sendStatus(200);
+
   var courseID = request.params.courseID;
 
   var filePath = getHashPath(courseID, 'courses');
@@ -157,6 +169,9 @@ app.get('/api/course/:courseID', function(request, response) {
 });
 
 app.post('/api/video/:videoID', function(request, response) {
+
+  // whoopeee
+  response.sendStatus(200);
 
   var videoID = request.params.videoID;
 
