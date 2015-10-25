@@ -186,11 +186,6 @@ app.get('/api/course/:courseID', function(request, response) {
 
   var filePath = getHashPath(courseID, 'courses');
 
-  if (!resourceExists(filePath)) {
-    response.sendStatus(404);
-    return;
-  }
-
   resourceExists(filePath, function(exists) {
     if (exists) {
       var data = fs.readFileSync(filePath);
