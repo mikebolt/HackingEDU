@@ -154,6 +154,11 @@
 						       + username + '&courseID=' + userObject.enrolledCourses[i])
 						.text(userObject.enrolledCourses[i]);
 
+						$.ajax("", function(data) {
+							var courseObject = $.parseJSON(data);
+							cardClone.find('#course-description').text(courseObject.description);
+						});
+
 						$('.section-inner').append(cardClone);
 					}
 				}
