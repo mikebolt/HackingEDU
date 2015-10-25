@@ -130,9 +130,6 @@ body{
     background: rgba(69, 201, 65, 1);
 }
 
-#next-btn{
-    
-}
 /* #video-container
 ================================ */
 .video-container {
@@ -151,9 +148,9 @@ body{
     height: 100%;
 }
 
-#course-video.stick{
+#course-video-container.stick{
     position: fixed;
-    top: 0px;
+    top: 0;
     z-index: 10000;
 }
 
