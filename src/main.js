@@ -23,7 +23,7 @@ function writeJSON(filePath, data) {
   var dataString;
 
   console.log('opening file ' + filePath);
-  fs.open(filePath, 'w', function(error, fd) {
+  fs.open(filePath, 'w+', function(error, fd) {
     console.log('opened file, error is ' + error + ', fd is ' + fd);
     if (error === undefined) {
       dataString = JSON.stringify(data);
