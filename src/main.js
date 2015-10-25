@@ -298,6 +298,10 @@ app.post('/api/progress', function(request, response) {
       data.duration = request.query.duration;
     }
 
+    if (request.query.videoIndex !== undefined) {
+      data.videoIndex = request.query.videoIndex;
+    }
+
     writeJSON(filePath, data);
   });  
 });
