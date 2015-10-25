@@ -74,7 +74,7 @@ app.post('/api/user/:username', function(request, response) {
     console.log('stat callback returned with error = ' + error +
                 ', and stats = ' + stats);
 
-    if (error === ENOENT) {
+    if (error.code === 'ENOENT') {
       data = {};
     }
     else if (stats !== undefined && stats.isFile()) {
