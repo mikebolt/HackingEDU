@@ -23,14 +23,17 @@ function writeJSON(filePath, data) {
   var dataString;
 
   console.log('opening file ' + filePath);
-  fs.open(filePath, 'w+', function(error, fd) {
+  fs.open(filePath, 'w', function(error, fd) {
     console.log('opened file, error is ' + error + ', fd is ' + fd);
-    if (error === undefined) {
-      dataString = JSON.stringify(data);
-      console.log('JSON data is ' + dataString);
-      fs.writeSync(fd, dataString);
-      console.log('wrote data to fd ' + fd);
+    if (error !== undefined && error.code === 'ENOENT') {
+      console.error('could not open file ' + filePath);
+      return;
     }
+
+    dataString = JSON.stringify(data);
+    console.log('JSON data is ' + dataString);
+    fs.writeSync(fd, dataString);
+    console.log('wrote data to fd ' + fd);
   });
 }
 
@@ -62,8 +65,7 @@ app.post('/api/user/:username', function(request, response) {
 
   console.log('username is ' + username);
 
-  var filePath = '/home/user/git/database/users/lolololol';
-  //var filePath = getHashPath(username, 'users');
+  var filePath = getHashPath(username, 'users');
 
   console.log('filePath is ' + filePath);
 
