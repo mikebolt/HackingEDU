@@ -7,45 +7,105 @@
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
-		<!--Profile Info-->
-		<img src="http://lorempixel.com/140/140" alt="..." class="img-circle img-responsive center-block">
-		<p class=user>Username</p>
-		
-		<!--Course Listings-->
-		<div class="row course-listing">
-			<div class="col-md-3">
-				<span class="label label-default">Courses</span>
-			</div>
-			<div class="col-md-3">
-				<span class="label label-default">Comments</span>
-			</div>	
-			<div class="col-md-3">
-				<span class="label label-default">Points</span>
-			</div>		
-		</div>
-		<!--Tabs Explore and Enrolled-->
-		<div class="row">
-			<ul class="nav nav-tabs">
-   					<li class="dropdown">
-      				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu 1 <span class="caret"></span></a>
-      				<ul class="dropdown-menu">
-						<li><a href="#">Submenu 1-1</a></li>
-						<li><a href="#">Submenu 1-2</a></li>
-						<li><a href="#">Submenu 1-3</a></li>   
-					</ul>
-			</li>
-    			<li class="dropdown">
-      				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu 1 <span class="caret"></span></a>
-      				<ul class="dropdown-menu">
-						<li><a href="#">Submenu 1-1</a></li>
-						<li><a href="#">Submenu 1-2</a></li>
-						<li><a href="#">Submenu 1-3</a></li>   
-					</ul>
-			</li>
-		</div>
-		<script></script>
 		<script src="js/jquery.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/script.js"></script>
+
+		<!--Profile Pic-->
+		<div class="profile-center">
+			<img src="http://lorempixel.com/140/140" alt="..." class="profile-pic img-circle img-responsive center-block">
+			<p class=user>Username</p>
+		</div>
+
+		<!--Course Info-->
+		<div class="row profile-info" id="profile-info">
+			<div class="col-xs-4">
+				<h3>3</h3>
+				<h5><small>COURSES ENROLLED</small></h5>
+			</div>
+			<div class="col-xs-4">
+				<h3>100</h3>
+				<h5><small>COMMENTS POSTED</small></h5>
+			</div>
+			<div class="col-xs-4">
+				<h3>10</h3>
+				<h5><small>COURSES TEACHING</small></h5>
+			</div>
+		</div>
+
+		<!--Tabs Explore and Enrolled-->
+		<div class="explore-enrolled">
+	        <ul class="nav nav-tabs nav-justified">
+	            <li class="active"><a href="#enrolled">ENROLLED</a></li>
+	            <li><a href="#teaching">TEACHING</a></li>
+	        </ul>
+
+			<!-- Tab Content -->
+	        <div class="tab-content">
+	            <div id="enrolled" class="tab-pane active">
+	                <section class="enrolled section">
+	                    <div class="content">
+							<!-- individual cards for courses -->
+							<div class="section-inner">
+								<div class="row class-status">
+									<div class="col-xs-3">
+										<img src="http://www.cs.tufts.edu/comp/105/images/progLanguages.jpg" width="100%">
+									</div>
+									<div class="col-xs-6">
+										<h2 class="heading"><a href="course_page.html">Class A</a></h2>
+		                        		<div class="content">
+		                            		<p>Write a brief intro about yourself. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. </p>
+			                        	</div><!--//content-->
+									</div>
+									<div class="col-xs-3">
+										<h4>80%<small> DONE</small></h4>
+										<h4>1:30<small> LEFT</small></h4>
+										<div class="divider"></div>
+										<button class="btn btn-danger" type="drop-class" width="80%">Drop Class</button>
+									</div>
+            					</div>
+	                    	</div><!--//card for courses-->
+	            		</div>
+					</section>
+				</div>
+	            <div id="teaching" class="tab-pane">
+	                <section class="teaching section">
+	                    <div class="content">
+							<!-- individual cards of courses -->
+							<div class="section-inner">
+								<div class="row class-status">
+									<div class="col-xs-3">
+										<img src="http://www.ronkot.com/wp-content/uploads/2014/09/graphicdesign-copy.jpg" width="100%">
+									</div>
+									<div class="col-xs-6">
+										<h2 class="heading">Class 1</h2>
+		                        		<div class="content">
+		                            		<p>Write a brief intro about yourself. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. </p>
+			                        	</div><!--//content-->
+									</div>
+									<div class="col-xs-3 add-drop-buttons">
+										<button class="btn btn-primary" type="add-class" width="80%">Add Class</button>
+										<div class="divider"></div>
+										<button class="btn btn-danger" type="drop-class" width="80%" disabled="disable">Drop Class</button>
+										<div class="divider"></div>
+										<button class="btn btn-info" type="edit-class" width="80%" disabled="disabled">Edit Class</button>
+
+									</div>
+            					</div>
+							</div><!--//card for courses-->
+	                    </div><!--//content-->
+	                </section><!--//section-->
+	            </div>
+	        </div>
+	        <script>
+	            $(document).ready(function(){
+	                $(".nav-tabs a").click(function(){
+	                    $(this).tab('show');
+	                });
+	            });
+	        </script>
+	    </div>
+		<script></script>
+
 	</body>
 </html>
