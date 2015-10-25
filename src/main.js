@@ -25,7 +25,25 @@ function getHashPath(id, endpoint) {
 }
 
 function resourceExists(filePath) {
+  var finished = false;
+  var exists = false;
   return fs.statSync(filePath).isFile();
+
+  fs.stat(filePath, function(err, stat)) {
+    if (err && err.code === 'ENOENT') {
+      exists = false;
+      finished = true;
+      return;
+    }
+    else if (stat && stat.isFile()) {
+      exists = true;
+      finished = true;
+      return;
+    }
+  });
+
+  while (!finished);
+  return exists;
 }
 
 function writeJSON(filePath, data) {
