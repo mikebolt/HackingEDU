@@ -26,7 +26,7 @@ function writeJSON(filePath, data) {
   console.log('opening file ' + filePath);
   fs.open(filePath, 'w', function(error, fd) {
     console.log('opened file, error is ' + error + ', fd is ' + fd);
-    if (error !== undefined && error.code === 'ENOENT') {
+    if (error && error.code === 'ENOENT') {
       console.error('could not open file ' + filePath);
       return;
     }
@@ -77,7 +77,7 @@ app.post('/api/user/:username', function(request, response) {
     console.log('stat callback returned with error = ' + error +
                 ', and stats = ' + stats);
 
-    if (error.code === 'ENOENT') {
+    if (error) {
       data = {};
     }
     else if (stats !== undefined && stats.isFile()) {
