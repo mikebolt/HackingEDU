@@ -19,3 +19,4 @@
   username - string (required)
   courseID - string (required)
   duration - string (optional)
+  videoIndex - string (optional)
