@@ -41,7 +41,10 @@
 			var biography = $('#user-bio-input').val();
 
 			$.ajax("http://192.241.229.102/api/user/" + URI.encode(username),
-			  {method: 'POST', data: {email: email, biography: biography}});
+			  {method: 'POST', data: {email: email, biography: biography}}).done(function() {
+				document.URL = "http://192.241.229.102/index.html?username=" + URI.encode(username);
+			};
+
 		});
 	</script>
 
