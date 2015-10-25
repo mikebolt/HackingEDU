@@ -19,18 +19,17 @@
 
 		<!--Profile info-->
 		<div class="row">
-			<div class="col-xs-3 col-xs-offset-2">
+			<div class="col-xs-4 col-xs-offset-2">
 				<div class="profile-center">
 					<img src="http://lorempixel.com/140/140" alt="..." class="profile-pic img-circle img-responsive center-block" id="profile-page-icon">
-					<p class=user id="user-name"/>
 				</div>
 			</div>
-			<div class="col-xs-5">
+			<div class="col-xs-4">
 				<section class="user-bio section">
 					<div>
 						<h3 id="username">User Name</h3>
 						<h4 text-align="center">Biography</h4>
-						<p>Write a brief intro about yourself. Lorem ipsum dolor sit amet</p>
+						<p id="biography">Write a brief intro about yourself. Lorem ipsum dolor sit amet</p>
 					</div>
 				</section>
 			</div>
@@ -141,8 +140,10 @@
 			$.ajax("http://192.241.229.102/api/user/" + username).done(function(data) {
 				var userObject = $.parseJSON(data);
 				
-
+				$('#biography').text(userObject.biography);
 			});
+
+			$('#username').text(username);
 	            });
 	        </script>
 	    </div>
