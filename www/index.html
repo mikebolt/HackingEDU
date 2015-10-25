@@ -153,6 +153,8 @@
 						.attr('href', 'http://192.241.229.102/course_page.html?username='
 						       + username + '&courseID=' + userObject.enrolledCourses[i])
 						.text(userObject.enrolledCourses[i]);
+
+						$('.section-inner').append(cardClone);
 					}
 				}
 
