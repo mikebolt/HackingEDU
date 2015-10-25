@@ -1,1 +1,0 @@
-var courseDonePercent = 60;

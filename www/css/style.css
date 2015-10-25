@@ -17,6 +17,10 @@ body{
 
 /* #Profile
 ================================ */
+.user-bio{
+    margin-right: 20px;
+}
+
 .header{
     text-align: center;
 }
@@ -74,6 +78,8 @@ body{
     text-align: center;
 }
 
+
+
 /* Course Page Styling
 ================================ */
 /*[Table of Contents]
@@ -95,13 +101,17 @@ body{
 ================================ */
 .coursepage-header{
     text-align: center;
-    vertical-align: middle;
     font-family: 'Roboto', 'sans-serif';
 }
 
 .img-circle{
     vertical-align: bottom;
     height: 50px;
+}
+
+#course-page-header{
+    vertical-align: top;
+    margin-bottom: 20px;
 }
 
 /* #progress bar
@@ -137,12 +147,17 @@ body{
     height: 100%;
 }
 
+#course-video.stick{
+    position: fixed;
+    top: 0px;
+    z-index: 10000;
+}
+
 /* #Progress Bar
 ================================ */
 
 /* #Class note and discussion tabs
 ================================ */
-/* ======= Sections======= */
 .sections-wrapper {
   padding-top: 60px;
   padding-bottom: 60px;
@@ -172,6 +187,10 @@ body{
     padding-left: 15px;
     padding-right: 15px;
     width: 100%;
+}
+
+.section .section-inner .content{
+  text-align: justify;
 }
 
 
