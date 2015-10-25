@@ -11,14 +11,18 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/script.js"></script>
 
-		<!--Profile Pic-->
+		<div class="divider"></div>
+		<div class="divider"></div>
+		<div class="divider"></div>
+		<div class="divider"></div>
+
+		<!--Profile info-->
 		<div class="profile-center">
-			<img src="http://lorempixel.com/140/140" alt="..." class="profile-pic img-circle img-responsive center-block">
+			<img src="http://lorempixel.com/140/140" alt="..." class="profile-pic img-circle img-responsive center-block" id="profile-page-icon">
 			<p class=user>Username</p>
 		</div>
 
-		<!--Course Info-->
-		<div class="row profile-info" id="profile-info">
+		<div class="row" id="profile-info">
 			<div class="col-xs-4">
 				<h3>3</h3>
 				<h5><small>COURSES ENROLLED</small></h5>
@@ -32,6 +36,7 @@
 				<h5><small>COURSES TEACHING</small></h5>
 			</div>
 		</div>
+
 
 		<!--Tabs Explore and Enrolled-->
 		<div class="explore-enrolled">
@@ -78,18 +83,24 @@
 										<img src="http://www.ronkot.com/wp-content/uploads/2014/09/graphicdesign-copy.jpg" width="100%">
 									</div>
 									<div class="col-xs-6">
-										<h2 class="heading">Class 1</h2>
+										<h2 class="heading"><a href="course_page.html">Class 1</a></h2>
 		                        		<div class="content">
 		                            		<p>Write a brief intro about yourself. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. </p>
 			                        	</div><!--//content-->
 									</div>
 									<div class="col-xs-3 add-drop-buttons">
-										<button class="btn btn-primary" type="add-class" width="80%">Add Class</button>
+										<button class="btn btn-primary" type="add-class" width="80%" id='add-class-btn'>Add Class</button>
 										<div class="divider"></div>
-										<button class="btn btn-danger" type="drop-class" width="80%" disabled="disable">Drop Class</button>
+										<button class="btn btn-danger" type="drop-class" width="80%" disabled="disable" id='drop-class-btn'>Drop Class</button>
 										<div class="divider"></div>
-										<button class="btn btn-info" type="edit-class" width="80%" disabled="disabled">Edit Class</button>
-
+										<button class="btn btn-info" type="edit-class" width="80%" id="edit-class-btn">Edit Class</button>
+										<script>
+											$(function(){
+												$('#edit-class-btn').click(function(){
+													window.location='edit_course.html'
+												});
+											});
+										</script>
 									</div>
             					</div>
 							</div><!--//card for courses-->
