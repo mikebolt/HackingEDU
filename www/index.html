@@ -135,7 +135,7 @@
 	                    $(this).tab('show');
 	                });
 
-			var username = URI.parseQuery(URI.parse(document.URI).query).username;
+			var username = URI.parseQuery(URI.parse(document.URL).query).username;
 
 			$.ajax("http://192.241.229.102/api/user/" + username).done(function(data) {
 				var userObject = $.parseJSON(data);
