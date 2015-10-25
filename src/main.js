@@ -29,7 +29,7 @@ function resourceExists(filePath) {
   var exists = false;
   return fs.statSync(filePath).isFile();
 
-  fs.stat(filePath, function(err, stat)) {
+  fs.stat(filePath, function(err, stat) {
     if (err && err.code === 'ENOENT') {
       exists = false;
       finished = true;
