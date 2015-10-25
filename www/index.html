@@ -142,7 +142,7 @@
 				
 				$('#biography').text(userObject.biography);
 
-				if (userObject.coursesEnrolled) {
+				if (userObject.enrolledCourses) {
 					$('#courses-enrolled-count').text("" + userObject.enrolledCourses.length);
 
 					for (var i = 0; i < userObject.enrolledCourses.length; ++i) {
@@ -156,7 +156,7 @@
 					}
 				}
 
-				if (userObject.coursesTeaching) {
+				if (userObject.teachingCourses) {
 					$('#courses-teaching-count').text("" + userObject.teachingCourses.length);
 				}
 
