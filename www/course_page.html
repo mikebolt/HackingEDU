@@ -13,66 +13,99 @@
 	<script src="js/bootstrap.min.js"></script>
     <script src="static/js/script.js"></script>
 
+	<div class="divider"></div>
+	<div class="divider"></div>
+
+	<!-- Header of page-->
 	<div class="coursepage-header">
 		<div class="row">
 			<div class="col-xs-6 col-xs-offset-3">
-        		<h1 class='center'>COURSE NAME</h1>
+        		<h1 class='center' id="course-page-header"/>
 			</div>
 			<div class="col-xs-2 col-xs-offset-1">
 				<a href="index.html"><img src="http://lorempixel.com/140/140" alt="..." class="img-circle img-responsive center-block"></a>
 			</div>
-    </div>
+    </div><!--//header of page-->
 
-    <div class="course-video">
+	<!--lecture video container-->
+	<div id="video-anchor"></div>
+	<div class="course-video" id="course-video">
         <div class="video-container">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/HMUDVMiITOU" frameborder="0" allowfullscreen></iframe>
         </div>
-    </div>
+		<script>
+			function sticky_relocate() {
+    			var window_top = $(window).scrollTop();
+    			var div_top = $('#video-anchor').offset().top;
+    			if (window_top > div_top) {
+        			$('#course-video').addClass('stick');
+    			} else {
+        			$('#course-video').removeClass('stick');
+    			}
+			}
 
+			$(function () {
+    			$(window).scroll(sticky_relocate);
+    			sticky_relocate();
+			});
+		</script>
+    </div><!--//lecture video container-->
+
+	<!--lecture progress bar-->
     <div class="container" id="progress-bar">
 		<div class="progress">
     		<div class="progress-bar progress-bar-course" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
-    	</div>
-</div>
-    </div>
+    		</div>
+		</div>
+    </div><!--//lecture progress bar-->
 
+	<!--tab menu-->
     <div class="note-discussion">
         <ul class="nav nav-tabs nav-justified">
             <li class="active"><a href="#note">CLASS NOTE</a></li>
             <li><a href="#discussion">DISCUSSION</a></li>
         </ul>
 
+		<!--content in each tab -->
         <div class="tab-content">
-            <div id="note" class="tab-pane active">
+			<!-- class note-->
+			<div id="note" class="tab-pane active">
                 <section class="note section">
                     <div class="section-inner">
                         <h2 class="heading">Class Notes</h2>
                         <div class="content">
                             <p>Write a brief intro about yourself. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec.</p>
                             <p>It's a good idea to include your personal interests and hobbies as well. Commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+							<p>It's a good idea to include your personal interests and hobbies as well. Commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
                         </div><!--//content-->
-                    </div><!--//section-inner-->
-                </section><!--//section-->
-            </div>
+                    </div><!--//content-->
+				</section><!--//section-->
+            </div><!--//section-inner-->
+
+			<!-- class discussion -->
             <div id="discussion" class="tab-pane">
                 <section class="discussion section">
                     <div class="section-inner">
                         <h2 class="heading">Discussion</h2>
                         <div class="content">
-
                         </div><!--//content-->
                     </div><!--//section-inner-->
                 </section><!--//section-->
-            </div>
-        </div>
+            </div><!--//class discussion-->
+        </div><!--//content in each tab-->
+
+		<!--js for changing tabs-->
         <script>
             $(document).ready(function(){
                 $(".nav-tabs a").click(function(){
                     $(this).tab('show');
                 });
+
+				
             });
-        </script>
-    </div>
+        </script><!--//js for changing tabs-->
+
+    </div><!--//tab menu-->
 
 
 </body>
