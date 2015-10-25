@@ -1,4 +1,5 @@
 {
   "staticBase" : "/home/git/project/www",
+  "databasePath" : "/home/git/database",
   "port" : 80
 }
