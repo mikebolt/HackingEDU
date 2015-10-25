@@ -106,7 +106,7 @@ app.post('/api/user/:username', function(request, response) {
       var value = request.body[userOptionalProperties[i]];
       if (value !== undefined) {
         if (userOptionalProperties[i] === 'enrolledCourses') {
-          data.enrolledCourse = value.split(',');
+          data.enrolledCourses = value.split(',');
 	}
 	else if (userOptionalProperties[i] === 'teachingCourses') {
 	  data.teachingCourses = value.split(',');
