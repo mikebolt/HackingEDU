@@ -11,10 +11,15 @@
 
 /* #Background
 ================================ */
-
+body{
+    background-color: #dae3e7 ;
+}
 
 /* #Profile
 ================================ */
+.header{
+    text-align: center;
+}
 
 .profile.center {
 	display: block;
@@ -24,6 +29,12 @@
 
 .user {
 	text-align: center;
+    margin-top: 10px;
+}
+
+#profile-info{
+    background-color: #dae3e7;
+    text-align: center;
 }
 
 /* #Courses
@@ -33,6 +44,30 @@
 	text-align: center;
 }
 
+/* ======= Sections======= */
+.section {
+  background: #dae3e7;
+  padding: 10px;
+  margin: 8px;
+}
+.section .heading {
+  color: #545e69;
+  font-size: 24px;
+}
+
+/* =======status======= */
+.class-status{
+    vertical-align: middle;
+}
+
+/* =======Add Drop Buttons======= */
+.divider{
+    height: 10px;
+}
+
+.add-drop-buttons{
+    text-align: center;
+}
 
 /* Course Page Styling
 ================================ */
@@ -47,21 +82,20 @@
 ------------------------------------------------------------------**/
 /* #General Prop
 ================================ */
-body {
+/*body {
     background-color: rgb(209, 220, 205);
-}
+}*/
 
 /* #coursepage-header
 ================================ */
 .coursepage-header{
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    vertical-align: middle;
     font-family: 'Roboto', 'sans-serif';
 }
 
 .coursepage-header .img-circle{
-    vertical-align: middle;
+    vertical-align: bottom;
     height: 50px;
 }
 
