@@ -62,7 +62,7 @@ app.post('/api/user/:username', function(request, response) {
 
   console.log('username is ' + username);
 
-  var filePath = '/home/user/git/database/user/lolololol';
+  var filePath = '/home/user/git/database/users/lolololol';
   //var filePath = getHashPath(username, 'users');
 
   console.log('filePath is ' + filePath);
@@ -74,10 +74,10 @@ app.post('/api/user/:username', function(request, response) {
     console.log('stat callback returned with error = ' + error +
                 ', and stats = ' + stats);
 
-    if (error !== undefined) {
+    if (error === ENOENT) {
       data = {};
     }
-    else if (stats.isFile()) {
+    else if (stats !== undefined && stats.isFile()) {
       console.log('stats.isFIle() is true');
 
       data = readJSON(filePath);
