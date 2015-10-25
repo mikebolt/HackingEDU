@@ -134,7 +134,7 @@
 						var index = parseInt(progressObject.videoIndex, 10);
 
 						$.ajax("http://192.241.229.102/api/progress?username=" + user + "&courseID=" + courseID,
-						  {method: 'POST', data: {videoIndex: "" + (index + 1)}).done(function() {
+						  {method: 'POST', data: {videoIndex: "" + (index + 1)}}).done(function() {
 							window.location = document.URL; // refresh 
 						});
 					});
