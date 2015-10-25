@@ -38,15 +38,15 @@
 
 		<div class="row" id="profile-info">
 			<div class="col-xs-4">
-				<h3>3</h3>
+				<h3 id="courses-enrolled-count">zoop</h3>
 				<h5><small>COURSES ENROLLED</small></h5>
 			</div>
 			<div class="col-xs-4">
-				<h3>100</h3>
+				<h3 id="comments-posted-count">whop</h3>
 				<h5><small>COMMENTS POSTED</small></h5>
 			</div>
 			<div class="col-xs-4">
-				<h3>10</h3>
+				<h3 id="courses-teaching-count">pow</h3>
 				<h5><small>COURSES TEACHING</small></h5>
 			</div>
 		</div>
@@ -66,19 +66,19 @@
 	                    <div class="content">
 							<!-- individual cards for courses -->
 							<div class="section-inner">
-								<div class="row class-status">
+								<div class="row class-status" id="class-card-template" style="display:none">
 									<div class="col-xs-3">
 										<img src="http://www.cs.tufts.edu/comp/105/images/progLanguages.jpg" width="100%">
 									</div>
 									<div class="col-xs-6">
-										<h2 class="heading"><a href="course_page.html">Class A</a></h2>
+										<h2 class="heading"><a class="course-link" href="course_page.html">Class A</a></h2>
 		                        		<div class="content">
-		                            		<p>Write a brief intro about yourself. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. </p>
+		                            		<p id='course-description'>Write a brief intro about yourself. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. </p>
 			                        	</div><!--//content-->
 									</div>
 									<div class="col-xs-3">
-										<h4>80%<small> DONE</small></h4>
-										<h4>1:30<small> LEFT</small></h4>
+										<h4><span id="progress-percent">80%</span><small> DONE</small></h4>
+										<h4><span id="remaining-time">1:30</span><small> LEFT</small></h4>
 										<div class="divider"></div>
 										<button class="btn btn-danger" type="drop-class" width="80%">Drop Class</button>
 									</div>
@@ -141,6 +141,25 @@
 				var userObject = $.parseJSON(data);
 				
 				$('#biography').text(userObject.biography);
+
+				if (userObject.coursesEnrolled) {
+					$('#courses-enrolled-count').text("" + userObject.enrolledCourses.length);
+
+					for (var i = 0; i < userObject.enrolledCourses; ++i) {
+						var cardClone = $('#class-card-template').clone();
+						cardClone.attr('id', 'class-card-' + (i + 1));
+						cardClone.attr('style', ''); // remove the display:none
+						cardClone.find('.course-link')
+						.attr('href', 'http://192.241.229.102/course_page.html?username='
+						       + username + '&courseID=' + userObject.enrolledCourses[i])
+						.text(userObject.enrolledCourses[i]);
+					}
+				}
+
+				if (userObject.coursesTeaching) {
+					$('#courses-teaching-count').text("" + userObject.teachingCourses.length);
+				}
+
 			});
 
 			$('#username').text(username);
