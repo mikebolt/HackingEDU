@@ -276,3 +276,11 @@ body{
 1. General Properties
 2. Forms of the page
 ------------------------------------------------------------------**/
+
+/* General Property
+================================ */
+#user-sign-up{
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: center;
+}
