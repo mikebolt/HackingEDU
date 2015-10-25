@@ -8,7 +8,7 @@
     <link href="css/style.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="js/purl.js"></script>
+	<script src="js/URI.js"></script>
 </head>
 <body>
 	<script src="js/bootstrap.min.js"></script>
@@ -110,9 +110,9 @@
                     $(this).tab('show');
                 });
 
-                var url = $.url(document.URL);
-				var courseID = url.fparam('courseID');
-				var user = url.fparam('username');
+                var parameters = URI.parseQuery(URI.parse(document.URL).query);
+				var courseID = parameters.courseID;
+				var user = parameters.username;
 
 				$.ajax("http://192.241.229.102/api/course/"+courseID).done(function(data){
 					var courseObject = $.parseJSON(data);
@@ -122,7 +122,7 @@
 						var videoID = courseObject.videos[index];
 
 						var videoPlayer = $("<iframe width='560' height='315' src='https://www.youtube.com/embed/"+videoID+"' frameborder='0' allowfullscreen/>");
-						var courseVideoContainer = $('#cours-video-container');
+						var courseVideoContainer = $('#course-video-container');
 						courseVideoContainer.append(videoPlayer);
 					});
 				});
