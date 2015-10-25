@@ -22,10 +22,14 @@ function getHashPath(id, endpoint) {
 function writeJSON(filePath, data) {
   var dataString;
 
+  console.log('opening file ' + filePath);
   fs.open(filePath, 'w', function(error, fd) {
+    console.log('opened file, error is ' + error + ', fd is ' + fd);
     if (error === undefined) {
       dataString = JSON.stringify(data);
+      console.log('JSON data is ' + dataString);
       fs.writeSync(fd, dataString);
+      console.log('wrote data to fd ' + fd);
     }
   });
 }
@@ -56,17 +60,26 @@ app.post('/api/user/:username', function(request, response) {
 
   var username = request.params.username;
 
+  console.log('username is ' + username);
+
   var filePath = '/home/user/git/database/user/lolololol';
   //var filePath = getHashPath(username, 'users');
+
+  console.log('filePath is ' + filePath);
 
   var data;
 
   // see if it exists
   fs.stat(filePath, function(error, stats) {
+    console.log('stat callback returned with error = ' + error +
+                ', and stats = ' + stats);
+
     if (error !== undefined) {
       data = {};
     }
     else if (stats.isFile()) {
+      console.log('stats.isFIle() is true');
+
       data = readJSON(filePath);
       //
     }
@@ -74,8 +87,12 @@ app.post('/api/user/:username', function(request, response) {
       data = {};
     }
 
+    console.log('data is now ' + data);
+
     for (var i = 0; i < userOptionalProperties.length; ++i) {
       var value = request.params[userOptionalProperties[i]];
+      console.log('value for property ' + userOptionalProperties[i] +
+                  ' is ' + value);
       if (value !== undefined) {
         if (userOptionalProperties[i] === 'enrolledCourses') {
           data['enrolledCourses'] = value.split(',');
@@ -85,6 +102,8 @@ app.post('/api/user/:username', function(request, response) {
 	}
       }
     }
+
+    console.log('calling writeJSON');
 
     writeJSON(filePath, data);
   });
