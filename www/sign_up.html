@@ -30,8 +30,19 @@
             <div class="divider"></div>
             <div class="divider"></div>
             <div class="divider"></div>
-            <button type="button" class="btn btn-primary btn-lg">Sign Up</button>
+            <button type="button" class="btn btn-primary btn-lg" id='sign-up-button'>Sign Up</button>
         </form>
+
+	<script>
+		$('#sign-up-button').click(function() {
+			var username = $('#user-name-input').val();
+			var email = $('#user-email-input').val();
+			var biography = $('#user-bio-input').val();
+
+			$.ajax("http://192.241.229.102/api/user/" + URI.encode(username),
+			  {method: 'POST', data: {email: email, biography: biography}});
+		});
+	</script>
 
 	</body>
 </html>
