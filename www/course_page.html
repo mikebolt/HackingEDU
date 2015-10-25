@@ -8,6 +8,7 @@
     <link href="css/style.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="js/purl.js"></script>
 </head>
 <body>
 	<script src="js/bootstrap.min.js"></script>
@@ -30,10 +31,10 @@
 	<!--lecture video container-->
 	<div id="video-anchor"></div>
 	<div class="course-video" id="course-video">
-        <div class="video-container">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/HMUDVMiITOU" frameborder="0" allowfullscreen></iframe>
+        <div class="video-container" id="course-video-container">
+            <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/HMUDVMiITOU" frameborder="0" allowfullscreen></iframe> -->
         </div>
-		<script>
+		<!-- <script>
 			function sticky_relocate() {
     			var window_top = $(window).scrollTop();
     			var div_top = $('#video-anchor').offset().top;
@@ -48,7 +49,7 @@
     			$(window).scroll(sticky_relocate);
     			sticky_relocate();
 			});
-		</script>
+		</script>-->
     </div><!--//lecture video container-->
 
 	<!--lecture progress bar-->
@@ -101,7 +102,22 @@
                     $(this).tab('show');
                 });
 
-				
+                var url = $.url(document.URL);
+				var courseID = url.fparam('courseID');
+				var user = url.fparam('username');
+
+				$.ajax("http://192.241.229.102/api/course/"+courseID).done(function(data){
+					var courseObject = $.parseJSON(data);
+					$.ajax("http://192.241.229.102/api/progress?username="+user+"&courseID="+courseID).done(function(data){
+						var progressObject = $.parseJSON(data);
+						var index = parseInt(progressObject.videoIndex, 10);
+						var videoID = courseObject.videos[index];
+
+						var videoPlayer = $("<iframe width='560' height='315' src='https://www.youtube.com/embed/"+videoID+"' frameborder='0' allowfullscreen/>");
+						var courseVideoContainer = $('#cours-video-container');
+						courseVideoContainer.append(videoPlayer);
+					});
+				});
             });
         </script><!--//js for changing tabs-->
 

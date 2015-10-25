@@ -102,16 +102,17 @@ body{
 .coursepage-header{
     text-align: center;
     font-family: 'Roboto', 'sans-serif';
+
 }
 
 .img-circle{
     vertical-align: bottom;
     height: 50px;
+    margin-bottom: 20px;
 }
 
 #course-page-header{
     vertical-align: top;
-    margin-bottom: 20px;
 }
 
 /* #progress bar
