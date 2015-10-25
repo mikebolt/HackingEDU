@@ -88,7 +88,7 @@
 				var youtubeURL = videoElement.find('#youtube-url' + i).val();
 				var notes = videoElement.find('#course-note' + i).val();
 
-				var youtubeID = URI.parseQuery(URI.parseURL(youtubeURL).query).v;
+				var youtubeID = URI.parseQuery(URI.parse(youtubeURL).query).v;
 				videos.push(youtubeID);
 
 				$.ajax("http://192.241.229.102/api/video/" + youtubeID,
