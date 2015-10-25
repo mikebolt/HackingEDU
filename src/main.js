@@ -136,6 +136,7 @@ app.get('/api/user/:username', function(request, response) {
 
 var courseOptionalProperties =
 [
+  'description',
   'duration',
   'instructor',
   'videos'
