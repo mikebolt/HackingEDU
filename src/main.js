@@ -23,6 +23,10 @@ function getHashPath(id, endpoint) {
   return parameters.databasePath + '/' + endpoint + '/' + hash;
 }
 
+function resourceExists(filePath) {
+  return fs.statSync(filePath).isFile();
+}
+
 function writeJSON(filePath, data) {
   var dataString;
 
@@ -58,6 +62,7 @@ var userOptionalProperties =
 [
   'email',
   'enrolledCourses',
+  'teachingCourses',
   'biography',
   'interests'
 ];
@@ -69,50 +74,34 @@ app.post('/api/user/:username', function(request, response) {
   response.sendStatus(200); // TODO 201 could be better
 
   var username = request.params.username;
-
-  console.log('username is ' + username);
-
   var filePath = getHashPath(username, 'users');
-
-  console.log('filePath is ' + filePath);
-
   var data;
 
   // see if it exists
   fs.stat(filePath, function(error, stats) {
-    console.log('stat callback returned with error = ' + error +
-                ', and stats = ' + stats);
-
     if (error) {
       data = {};
     }
     else if (stats && stats.isFile()) {
-      console.log('stats.isFile() is true');
-
       data = readJSON(filePath);
-      //
     }
     else {
       data = {};
     }
 
-    console.log('data is now ' + data);
-
     for (var i = 0; i < userOptionalProperties.length; ++i) {
       var value = request.body[userOptionalProperties[i]];
-      console.log('value for property ' + userOptionalProperties[i] +
-                  ' is ' + value);
       if (value !== undefined) {
         if (userOptionalProperties[i] === 'enrolledCourses') {
-          data['enrolledCourses'] = value.split(',');
+          data.enrolledCourse = value.split(',');
 	}
+	else if (userOptionalProperties[i] === 'teachingCourses') {
+	  data.teachingCourses = value.split(',');
 	else {
 	  data[userOptionalProperties[i]] = value;
 	}
       }
     }
-
-    console.log('calling writeJSON');
 
     writeJSON(filePath, data);
   });
@@ -145,15 +134,35 @@ app.post('/api/course/:courseID', function(request, response) {
   response.sendStatus(200);
 
   var courseID = request.params.courseID;
-
   var filePath = getHashPath(courseID, 'courses');
-   
-  // Just overwrite any valid parameters specified
+  var data;
 
-// instructor is auto-filled
-//  if (request.query.instructor ===
+  // see if it exists
+  fs.stat(filePath, function(error, stats) {
+    if (error) {
+      data = {};
+    }
+    else if (stats && stats.isFile()) {
+      data = readJSON(filePath);
+    }
+    else {
+      data = {};
+    }
 
- 
+    for (var i = 0; i < courseOptionalProperties.length; ++i) {
+      var value = request.body[courseOptionalProperties[i]];
+      if (value !== undefined) {
+        if (courseOptionalProperties[i] === 'videos') {
+          data.videos = value.split(',');
+	}
+	else {
+	  data[courseOptionalProperties[i]] = value;
+	}
+      }
+    }
+
+    writeJSON(filePath, data);
+  });  
 });
 
 app.get('/api/course/:courseID', function(request, response) {
@@ -163,10 +172,21 @@ app.get('/api/course/:courseID', function(request, response) {
 
   var filePath = getHashPath(courseID, 'courses');
 
-  var data = fs.readFileSync(filePath);
+  if (!resourceExists(filePath)) {
+    response.sendStatus(404);
+    return;
+  }
 
+  var data = fs.readFileSync(filePath);
   response.send(data);
 });
+
+var videoOptionalProperties =
+[
+  'sectionTitle',
+  'duration',
+  'notes'
+];
 
 app.post('/api/video/:videoID', function(request, response) {
 
@@ -174,8 +194,30 @@ app.post('/api/video/:videoID', function(request, response) {
   response.sendStatus(200);
 
   var videoID = request.params.videoID;
-
   var filePath = getHashPath(videoID, 'videos');
+  var data;
+
+  // see if it exists
+  fs.stat(filePath, function(error, stats) {
+    if (error) {
+      data = {};
+    }
+    else if (stats && stats.isFile()) {
+      data = readJSON(filePath);
+    }
+    else {
+      data = {};
+    }
+
+    for (var i = 0; i < courseOptionalProperties.length; ++i) {
+      var value = request.body[videoOptionalProperties[i]];
+      if (value !== undefined) {
+        data[videoOptionalProperties[i]] = value;
+      }
+    }
+
+    writeJSON(filePath, data);
+  });  
 });
 
 // Note: the videoID is the same as the YouTube video ID
@@ -185,11 +227,85 @@ app.get('/api/video/:videoID', function(request, response) {
 
   var filePath = getHashPath(videoID, 'videos');
 
-  var data = fs.readFileSync(filePath);
+  if (!resourceExists(filePath)) {
+    response.sendStatus(404);
+    return;
+  }
 
+  var data = fs.readFileSync(filePath);
   response.send(data);
 });
 
+app.put('/api/progress', function(request, response) {
+  if (request.query.username === undefined) {
+    response.sendStatus(400);
+    return;
+  }
+
+  if (request.query.courseID === undefined) {
+    response.sendStatus(400);
+    return;
+  }
+
+  // yepppp
+  response.sendStatus(200);
+
+  var username = request.query.username;
+  var courseID = request.query.courseID;
+  
+  var id = username + 'lololl' + courseID;
+
+  var filePath = getHashPath(id, 'progress');
+
+  fs.stat(filePath, function(error, stats) {
+    if (error) {
+      data = {};
+    }
+    else if (stats && stats.isFile()) {
+      data = readJSON(filePath);
+    }
+    else {
+      data = {};
+    }
+
+    data.username = username;
+    data.courseID = courseID;
+
+    if (request.query.duration !== undefined) {
+      data.duration = request.query.duration;
+    }
+
+    writeJSON(filePath, data);
+  });  
+});
+
+app.get('/api/progress', function(request, response) {
+  if (request.query.username === undefined) {
+    response.sendStatus(400);
+    return;
+  }
+  
+  if (request.query.courseID === undefined) {
+    reponse.sendStatus(400);
+    return;
+  }
+
+  var username = request.query.username;
+  var courseID = request.query.courseID;
+
+  // TODO attackers could easily engineer collisions but oh well for now
+  var id = username + "lololl" + courseID;
+
+  var filePath = getHashPath(id, 'progress');
+
+  if (!resourceExists(filePath)) {
+    response.sendStatus(404);
+    return;
+  }
+
+  var data = fs.readFileSync(filePath);
+  response.send(data);
+});
 
 router404.use(function(request, response, pass) {
   response.sendStatus(404);
@@ -203,7 +319,7 @@ app.use(express.static(parameters.staticBase));
 
 var server = app.listen(parameters.port, function() {
 
-  stopBeingRoot();
+  stopBeingRoot(); // It's just rude.
 
   var host = server.address().address;
   var port = server.address().port;
