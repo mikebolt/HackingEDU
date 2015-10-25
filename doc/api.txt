@@ -1,0 +1,21 @@
+/api/video/:videoID
+  sectionTitle - a string (optional)
+  duration - a string (optional)
+  notes - a string (optional)
+
+/api/course/:courseID
+  duration - string (optional)
+  instructor - string, should be a username (optional)
+  videos - a list of YouTube IDs (optional)
+
+/api/user/:username
+  email - string (optional)
+  enrolledCourses - list of course IDs (optional)
+  teachingCourses - list of course IDs (optional)
+  biography - string (optional)
+  interests - string (optional)
+
+/api/progress?username=X&courseID=Y
+  username - string (required)
+  courseID - string (required)
+  duration - string (optional)
