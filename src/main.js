@@ -1,7 +1,13 @@
 var fs = require('fs');
 var crypto = require('crypto');
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
+
+app.use(bodyParser.urlencoded({
+  extended: true
+});
+app.use(express.urlencoded());
 
 var router404 = express.Router();
 var apiRouter = express.Router();
@@ -80,8 +86,8 @@ app.post('/api/user/:username', function(request, response) {
     if (error) {
       data = {};
     }
-    else if (stats !== undefined && stats.isFile()) {
-      console.log('stats.isFIle() is true');
+    else if (stats && stats.isFile()) {
+      console.log('stats.isFile() is true');
 
       data = readJSON(filePath);
       //
@@ -93,7 +99,7 @@ app.post('/api/user/:username', function(request, response) {
     console.log('data is now ' + data);
 
     for (var i = 0; i < userOptionalProperties.length; ++i) {
-      var value = request.params[userOptionalProperties[i]];
+      var value = request.body[userOptionalProperties[i]];
       console.log('value for property ' + userOptionalProperties[i] +
                   ' is ' + value);
       if (value !== undefined) {
