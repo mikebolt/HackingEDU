@@ -18,15 +18,16 @@
 
 		<!--Profile info-->
 		<div class="row">
-			<div class="col-xs-6">
+			<div class="col-xs-3 col-xs-offset-2">
 				<div class="profile-center">
 					<img src="http://lorempixel.com/140/140" alt="..." class="profile-pic img-circle img-responsive center-block" id="profile-page-icon">
 					<p class=user id="user-name"/>
 				</div>
 			</div>
-			<div class="col-xs-6">
+			<div class="col-xs-5">
 				<section class="user-bio section">
-					<div class="section-inner">
+					<div>
+						<h3 id="username">User Name</h3>
 						<h4 text-align="center">Biography</h4>
 						<p>Write a brief intro about yourself. Lorem ipsum dolor sit amet</p>
 					</div>
@@ -118,6 +119,13 @@
             					</div>
 							</div><!--//card for courses-->
 	                    </div><!--//content-->
+						<button type="button" class="btn btn-primary btn-circle btn-lg" id="add-course-btn"><i class="glyphicon glyphicon-plus"></i></button>
+						<script>
+				            $("#add-course-btn").click( function()
+				            {
+				                window.location='edit_course.html';
+				            });
+				        </script>
 	                </section><!--//section-->
 	            </div>
 	        </div>
