@@ -146,15 +146,16 @@
 					$('#courses-enrolled-count').text("" + userObject.enrolledCourses.length);
 
 					for (var i = 0; i < userObject.enrolledCourses.length; ++i) {
+						var courseID = userObject.enrolledCourses[i];
 						var cardClone = $('#class-card-template').clone();
 						cardClone.attr('id', 'class-card-' + (i + 1));
 						cardClone.attr('style', ''); // remove the display:none
 						cardClone.find('.course-link')
 						.attr('href', 'http://192.241.229.102/course_page.html?username='
-						       + username + '&courseID=' + userObject.enrolledCourses[i])
-						.text(userObject.enrolledCourses[i]);
+						       + username + '&courseID=' + courseID)
+						.text(courseID);
 
-						$.ajax("", function(data) {
+						$.ajax("http://192.241.229.102/api/course/" + courseID).done(function(data) {
 							var courseObject = $.parseJSON(data);
 							cardClone.find('#course-description').text(courseObject.description);
 						});
