@@ -6,7 +6,7 @@ var app = express();
 
 app.use(bodyParser.urlencoded({
   extended: true
-});
+}));
 app.use(express.urlencoded());
 
 var router404 = express.Router();
