@@ -19,30 +19,25 @@ function getHashPath(id, endpoint) {
   idHasher = crypto.createHash('sha512');
   idHasher.update(id, 'utf8');
   var hash = idHasher.digest('base64');
-  hash = hash.replace(/\//g, '_').replace(/\+/g, '-');// make it filesystem/url safe
+
+  // make it filesystem/url safe
+  hash = hash.replace(/\//g, '_').replace(/\+/g, '-');
   console.log('hash for id ' + id + ' is ' + hash);
   return parameters.databasePath + '/' + endpoint + '/' + hash;
 }
 
-function resourceExists(filePath) {
-  var finished = false;
-  var exists = false;
-
+function resourceExists(filePath, callback) {
   fs.stat(filePath, function(err, stat) {
     if (err && err.code === 'ENOENT') {
-      exists = false;
-      finished = true;
-      return;
+      callback(false);
     }
     else if (stat && stat.isFile()) {
-      exists = true;
-      finished = true;
-      return;
+      callback(true);
+    }
+    else {
+      callback(false);
     }
   });
-
-  while (!finished);
-  return exists;
 }
 
 function writeJSON(filePath, data) {
@@ -196,8 +191,15 @@ app.get('/api/course/:courseID', function(request, response) {
     return;
   }
 
-  var data = fs.readFileSync(filePath);
-  response.send(data);
+  resourceExists(filePath, function(exists) {
+    if (exists) {
+      var data = fs.readFileSync(filePath);
+      response.send(data);
+    }
+    else {
+      response.sendStatus(404); 
+    }
+  });
 });
 
 var videoOptionalProperties =
@@ -246,13 +248,15 @@ app.get('/api/video/:videoID', function(request, response) {
 
   var filePath = getHashPath(videoID, 'videos');
 
-  if (!resourceExists(filePath)) {
-    response.sendStatus(404);
-    return;
-  }
-
-  var data = fs.readFileSync(filePath);
-  response.send(data);
+  resourceExists(filePath, function(exists) {
+    if (exists) {
+      var data = fs.readFileSync(filePath);
+      response.send(data);
+    }
+    else {
+      response.sendStatus(404);
+    }
+  });
 });
 
 app.post('/api/progress', function(request, response) {
@@ -314,16 +318,17 @@ app.get('/api/progress', function(request, response) {
 
   // TODO attackers could easily engineer collisions but oh well for now
   var id = username + "lololl" + courseID;
-
   var filePath = getHashPath(id, 'progress');
 
-  if (!resourceExists(filePath)) {
-    response.sendStatus(404);
-    return;
-  }
-
-  var data = fs.readFileSync(filePath);
-  response.send(data);
+  resourceExists(filePath, function(exists) {
+    if (exists) {
+      var data = fs.readFileSync(filePath);
+      response.send(data);
+    }
+    else {
+      response.sendStatus(404);
+    }
+  });
 });
 
 router404.use(function(request, response, pass) {
