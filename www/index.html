@@ -145,7 +145,7 @@
 				if (userObject.coursesEnrolled) {
 					$('#courses-enrolled-count').text("" + userObject.enrolledCourses.length);
 
-					for (var i = 0; i < userObject.enrolledCourses; ++i) {
+					for (var i = 0; i < userObject.enrolledCourses.length; ++i) {
 						var cardClone = $('#class-card-template').clone();
 						cardClone.attr('id', 'class-card-' + (i + 1));
 						cardClone.attr('style', ''); // remove the display:none
