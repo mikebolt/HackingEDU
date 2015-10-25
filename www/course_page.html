@@ -22,6 +22,7 @@
 		<div class="row">
 			<div class="col-xs-6 col-xs-offset-3">
         		<h1 class='center' id="course-page-header"/>
+			<h2 class='center' id="course-page-subheader"/>
 			</div>
 			<div class="col-xs-2 col-xs-offset-1">
 				<a href="index.html"><img src="http://lorempixel.com/140/140" alt="..." class="img-circle img-responsive center-block"></a>
@@ -82,7 +83,7 @@
                 <section class="note section">
                     <div class="section-inner">
                         <h2 class="heading">Class Notes</h2>
-                        <div class="content">
+                        <div class="content"/>
                             <p>Write a brief intro about yourself. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec.</p>
                             <p>It's a good idea to include your personal interests and hobbies as well. Commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
 							<p>It's a good idea to include your personal interests and hobbies as well. Commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
@@ -111,20 +112,29 @@
                 });
 
                 var parameters = URI.parseQuery(URI.parse(document.URL).query);
-				var courseID = parameters.courseID;
-				var user = parameters.username;
+				var courseID = URI.decode(parameters.courseID);
+				var user = URI.decode(parameters.username);
 
 				$.ajax("http://192.241.229.102/api/course/"+courseID).done(function(data){
 					var courseObject = $.parseJSON(data);
+					var videoID = courseObject.videos[index];
 					$.ajax("http://192.241.229.102/api/progress?username="+user+"&courseID="+courseID).done(function(data){
 						var progressObject = $.parseJSON(data);
 						var index = parseInt(progressObject.videoIndex, 10);
-						var videoID = courseObject.videos[index];
 
 						var videoPlayer = $("<iframe width='560' height='315' src='https://www.youtube.com/embed/"+videoID+"' frameborder='0' allowfullscreen/>");
 						var courseVideoContainer = $('#course-video-container');
 						courseVideoContainer.append(videoPlayer);
 					});
+
+					$.ajax("http://192.241.229.102/api/video/" + videoID, function(data) {
+						var videoObject = $.parseJSON(data);
+
+						$('course-page-subheader').text(videoObject.sectionTitle);
+						$('#note .content').text(videoObject.notes);
+					});
+
+					$('.course-page-header').text(courseID);
 				});
             });
         </script><!--//js for changing tabs-->
