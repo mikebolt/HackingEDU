@@ -42,20 +42,16 @@
 
         <!--Container for each lecture-->
         <section class="lecture section">
-            <div class="section-inner">
-                <h3 class="heading">Lecture 1</h3>
+            <div class="section-inner" id="lecture0">
+                <h3 class="heading">Section 1</h3>
                 <form>
                     <div class="form-group">
                         <h4><strong>Youtube URL</strong></h4>
-                        <input type="text" class="form-control" id="youtube-url" placeholder="">
-                    </div>
-                    <div class="form-group">
-                        <h4><strong>Youtube URL</strong></h4>
-                        <input type="text" class="form-control" id="youtube-url" placeholder="">
+                        <input type="text" class="form-control" id="youtube-url0" placeholder="">
                     </div>
                     <div class="form-group">
                         <h4><strong>Course Notes</strong></h4>
-                        <textarea class="form-control" id="course-note" placeholder="" rows="4"></textarea>
+                        <textarea class="form-control" id="course-note0" placeholder="" rows="4"></textarea>
                     </div>
                 </form>
             </div>
@@ -63,7 +59,18 @@
 
         <!-- Button to add lecture -->
         <button type="button" class="btn btn-primary btn-circle btn-lg" id="add-lecture-btn"><i class="glyphicon glyphicon-plus"></i></button>
-
+        <script>
+            var videoID = 0;
+            $("#add-lecture-btn").click( function()
+            {
+                videoID++;
+                var cloneDiv = $('#lecture0').clone().attr('id','lecture'+videoID).insertAfter("div.section-inner:last");
+                var heading = cloneDiv.find('.heading');
+                heading.text('Section '+(videoID+1));
+                var newYoutubeID = cloneDiv.find('#youtube-url0').attr('id','youtube-url'+videoID);
+                var newCourseNoteID = cloneDiv.find('#course-note0').attr('id','course-note'+videoID);
+            });
+        </script>
         <!-- Button to finish editing-->
         <button type="button" class="btn btn-success btn-circle btn-lg" id="finish-edit-lecture-btn"><i class="glyphicon glyphicon-ok"></i></button>
 
