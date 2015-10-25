@@ -91,7 +91,7 @@
 				var youtubeID = URI.parseQuery(URI.parseURL(youtubeURL).query).v;
 				videos.push(youtubeID);
 
-				$.ajax("http://192.241.229.102/api/video/" + ,
+				$.ajax("http://192.241.229.102/api/video/" + youtubeID,
 				  {method: 'POST', data: {
 				    'notes': notes 
 				  }}).done(function() {
