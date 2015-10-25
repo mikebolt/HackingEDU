@@ -13,12 +13,10 @@ var apiRouter = express.Router();
 
 var parameters = require('./parameters.json');
 
-// doing the hashing so that users can't exploit relative filenames
-var idHasher = crypto.createHash('sha512');
-
 // Le 'database' utility functions
 
 function getHashPath(id, endpoint) {
+  idHasher = crypto.createHash('sha512');
   idHasher.update(id, 'utf8');
   var hash = idHasher.digest('base64').substr(4); // skip the "GSG/"
   console.log('hash for id ' + id + ' is ' + hash);
@@ -66,6 +64,9 @@ var userOptionalProperties =
 
 app.post('/api/user/:username', function(request, response) {
   console.log('POST /api/user');
+
+  // wow, neat, thanks
+  response.sendStatus(200); // TODO 201 could be better
 
   var username = request.params.username;
 
@@ -140,6 +141,9 @@ var courseOptionalProperties =
 app.post('/api/course/:courseID', function(request, response) {
   console.log('POST /api/course')
 
+  // neatooo
+  response.sendStatus(200);
+
   var courseID = request.params.courseID;
 
   var filePath = getHashPath(courseID, 'courses');
@@ -165,6 +169,9 @@ app.get('/api/course/:courseID', function(request, response) {
 });
 
 app.post('/api/video/:videoID', function(request, response) {
+
+  // whoopeee
+  response.sendStatus(200);
 
   var videoID = request.params.videoID;
 
