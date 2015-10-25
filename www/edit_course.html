@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>HackingEdu</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/script.js"></script>
+
+		<div class="divider"></div>
+		<div class="divider"></div>
+
+        <!-- Header -->
+        <div class="edit-course-header">
+    		<div class="row">
+    			<div class="col-xs-6 col-xs-offset-3">
+            		<h1 class='center'>COURSE NAME</h1>
+    			</div>
+    			<div class="col-xs-2 col-xs-offset-1">
+    				<a href="index.html"><img src="http://lorempixel.com/140/140" alt="..." class="img-circle img-responsive center-block"></a>
+    			</div>
+            </div>
+        </div>
+
+		<!--General Info of Course-->
+        <div class="general-course-info">
+            <form>
+                <div class="form-group">
+                    <h4><strong>Course Name</strong></h4>
+                    <input type="text" class="form-control" id="course-name" placeholder="Course Name">
+                </div>
+                <div class="form-group">
+                    <h4><strong>Course Description</strong></h4>
+                    <textarea class="form-control" id="course-description" placeholder="Course Description" rows="4"></textarea>
+                </div>
+            </form>
+        </div><!--//General info of course-->
+
+        <!--Container for each lecture-->
+        <section class="lecture section">
+            <div class="section-inner">
+                <h3 class="heading">Lecture 1</h3>
+                <form>
+                    <div class="form-group">
+                        <h4><strong>Youtube URL</strong></h4>
+                        <input type="text" class="form-control" id="youtube-url" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <h4><strong>Course Notes</strong></h4>
+                        <textarea class="form-control" id="course-note" placeholder="" rows="4"></textarea>
+                    </div>
+                </form>
+            </div>
+        </section><!--//Container for each lecture-->
+
+        <!-- Button to add lecture -->
+        <button type="button" class="btn btn-primary btn-circle btn-lg" id="add-lecture-btn"><i class="glyphicon glyphicon-plus"></i></button>
+
+        <!-- Button to finish editing-->
+        <button type="button" class="btn btn-success btn-circle btn-lg" id="finish-edit-lecture-btn"><i class="glyphicon glyphicon-ok"></i></button>
+
+	</body>
+</html>
